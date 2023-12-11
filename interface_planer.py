@@ -67,8 +67,8 @@ def main():
                 return
             else:
                 if action_name != "state_construct_empty_states_P":
-                    serialized_old_states_b64 = args[0]
-                    serialized_old_states = bytes(base64.b64decode(serialized_old_states_b64), encoding='utf-8')
+                    serialized_old_states_b64 = args[0]['value']
+                    serialized_old_states = bytes(base64.b64decode(serialized_old_states_b64))
                     old_states = pickle.loads(serialized_old_states)
                 else:
                     old_states = None
