@@ -315,6 +315,44 @@ class OFBExpression(Expression):
         return json.dumps(dict_value)
 
 
+class REGCTLExpression(Expression):
+    def __init__(self, reg_name):
+        super().__init__(SMT_OP.REG_CTL)
+        self._params.append(reg_name)
+
+    def __str__(self):
+        estr = 'CTL('
+        estr += self._params[0]
+        estr += ')'
+        return estr
+
+    @property
+    def to_json(self):
+        dict_value = {'op_type': SMT_OP.REG_CTL, 'params': [{'data': self._params[0]}]}
+        return json.dumps(dict_value)
+
+
+class MEMCTLExpression(Expression):
+    def __init__(self, mem_expr, size_in_byte):
+        super().__init__(SMT_OP.MEM_CTL)
+        self._params.append(mem_expr)
+        self._params.append(size_in_byte)
+
+    def __str__(self):
+        estr = 'CTL('
+        estr += str(self._params[0])
+        estr += ', '
+        estr += 'size = '
+        estr += str(self._params[1])
+        estr += ')'
+        return estr
+
+    @property
+    def to_json(self):
+        dict_value = {'op_type': SMT_OP.MEM_CTL, 'params': [{'data': self._params[0], 'size': self._params[1]}]}
+        return json.dumps(dict_value)
+
+
 def construct_expression_from_json(json_str):
     try:
         dict_value = json.loads(json_str)

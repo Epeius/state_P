@@ -43,7 +43,10 @@ class SMT_OP:
 
     OFB = 26  # 从指定模块的偏移量
 
-    NOT_IMP = 27
+    REG_CTL = 27  # 寄存器数据为可控
+    MEM_CTL = 28  # 内存数据为可控
+
+    NOT_IMP = 29
 
 
 # 映射字典，便于转字符串
@@ -53,4 +56,4 @@ OP_TO_STR = {1: 'ADD', 2: 'SUB', 3: 'MUL', 4: 'DIV',
              15: 'LS', 16: 'RS', 17: 'CONST',
              18: 'VCM', 19: 'VIM', 20: 'VFM', 21: 'VDM',
              22: 'VCR', 23: 'VIR', 24: 'VFR', 25: 'VDR',
-             26: 'OFB'}
+             26: 'OFB', 27: 'REG_CTL', 28: 'MEM_CTL'}
