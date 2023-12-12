@@ -32,7 +32,11 @@ class Expression(object):
         return copy.deepcopy(self)
 
     def is_logic_expr(self):
-        return SMT_OP.GT <= self._op_type <= SMT_OP.NEQ
+        if SMT_OP.GT <= self._op_type <= SMT_OP.NEQ:
+            return True
+        if self._op_type in [SMT_OP.REG_CTL, SMT_OP.MEM_CTL]:
+            return True
+        return False
 
     def visit(self, func):
         for v in self._params:
@@ -321,7 +325,7 @@ class REGCTLExpression(Expression):
         self._params.append(reg_name)
 
     def __str__(self):
-        estr = 'CTL('
+        estr = 'REGCTL('
         estr += self._params[0]
         estr += ')'
         return estr
@@ -339,7 +343,7 @@ class MEMCTLExpression(Expression):
         self._params.append(size_in_byte)
 
     def __str__(self):
-        estr = 'CTL('
+        estr = 'MEMCTL('
         estr += str(self._params[0])
         estr += ', '
         estr += 'size = '
