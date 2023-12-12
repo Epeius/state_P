@@ -2,7 +2,8 @@
 
 from copy import deepcopy
 from program_state.constraint import Constraint
-
+import base64
+import pickle
 
 class State:
     """
@@ -74,3 +75,13 @@ class StateChain:
         for C in S.constraints:
             self.__state_list[-1].add_constraint(C)
         return
+
+
+def revertStateChainFromNetwork(net_data):
+    """
+    从请求的数据中恢复state序列
+    """
+    serialized_state_chain_b64 = net_data
+    serialized_state_chain = bytes(base64.b64decode(serialized_state_chain_b64))
+    state_chain = pickle.loads(serialized_state_chain)
+    return state_chain

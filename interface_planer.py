@@ -4,6 +4,7 @@ import pickle
 import argparse
 import json
 import base64
+from program_state.state import revertStateChainFromNetwork
 
 SUPPORTED_ACTIONS = [
     "state_construct_empty_states_P",
