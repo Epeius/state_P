@@ -58,12 +58,18 @@ def main():
         args = query_info['args']
 
         if action_name not in SUPPORTED_ACTIONS:
-            print(json.dumps({"status": 0, "info": "ERROR", "data": {"Invalid query_name!"}}))
+            print(json.dumps( {
+                'processed': 0,
+                'res': {"status": 0, "info": "ERROR", "data": {"Invalid query_name!"}}
+            }))
             return
 
         if 'index' in input_json:
             if input_json['index'] > 0:
-                print(json.dumps({"status": 1, "info": "ok", "data": {"valid": 0, "args": []}}))
+                print(json.dumps({
+                    'processed': 0,
+                    'res': {"status": 1, "info": "ok", "data": {"valid": 0, "args": []}}
+                }))
                 return
             else:
                 if action_name != "state_construct_empty_states_P":
@@ -81,7 +87,10 @@ def main():
                 args = args[:-1]
                 args.append({'type': 'str', 'value': str(serialized_new_states_b64), 'concrete': 1})
 
-        print(json.dumps({"status": 1, "info": "ok", "data": {"valid": 1, "args": args}}))
+        print(json.dumps({
+            'processed': 1,
+            'res':  {"status": 1, "info": "ok", "data": {"valid": 1, "args": args}}
+        }))
 
 
 if __name__ == "__main__":
